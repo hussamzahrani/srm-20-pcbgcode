@@ -1,6 +1,6 @@
 # srm-20-pcbgcode
 
-if you are like me , stuck with a Roland SRM-20, and trying to  export gcode directly from EagleCad ( Autodesk Eagle ) using PCB Gcode ULP , you'll have to edit the resulting files to make it compatible with Roland SRM-20
+if you are like me , stuck with a Roland SRM-20, and trying to  export gcode directly from EagleCad ( Autodesk Eagle ) using Pcb-Gcode ULP , you'll have to edit the resulting files to make it compatible with Roland SRM-20
 
 I went though few instructables and tutorials online that suggested other solutions , but I found it time consuming , going through a weird pipeline of exporting as an image then converting it to gcode through diffrent methods
 
@@ -24,11 +24,13 @@ Profile/generic.h
 and saving it as srm-20.h
 
 Line 45
+
     string DWELL    = "G04 " + PARAM + "%f" + EOL;
 
 this line Calls PARAM which is the parameter for time unit for dwelling
 
 Line 26
+
     string PARAM      = "P";
 
 the default value was "P" , changed to "X" , as specified for seconds in the machine manual
@@ -48,6 +50,7 @@ also it should be appended in the beginning of the gcode file , by adding 2 line
 settings/user_gcode.h
 
 line 20
+
     FILE_BEGIN[ALL]    = "(Beginning of every file)\n"
 
 added 2 lines after that to append the requested symbol to the beginning of the generated gcode file 
@@ -64,11 +67,13 @@ added 2 lines after that to append the requested symbol to the beginning of the 
  settings/pcb-gcode-options
  
  line 33
- string DEFAULT_EXTENSION = "tap";
+ 
+        string DEFAULT_EXTENSION = "tap";
  to
- string DEFAULT_EXTENSION = "nc";
+ 
+        string DEFAULT_EXTENSION = "nc";
 
 
 I went through the other files
 gcode-defaults.h and safe_options/
-to make sure that a "restart to default" command won't change to values to something else
+repeated the steps to make sure that a "restart to default" command won't change to values to something else
